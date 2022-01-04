@@ -1,5 +1,13 @@
 
 def new_table(df,pd):
+    """
+    df: dataframe,
+    pd: pandas,
+    new_table(df,pd): process the data and creates multiple new tables 
+    This function creates new columns that show the percentage change of
+infection rates between each day for each area.
+
+    """
     newdata = pd.DataFrame()
     newdata['newCasesBySpecimenDate-0_4'] = df['newCasesBySpecimenDate-0_4']
     newdata['newCasesBySpecimenDate-0_59'] = df['newCasesBySpecimenDate-0_59']
@@ -48,7 +56,13 @@ def new_table(df,pd):
     newdata['newCasesBySpecimenDateByPctchange-85_89'] = df['newCasesBySpecimenDateByPctchange-85_89'] = df['newCasesBySpecimenDate-85_89'].pct_change()
     newdata['newCasesBySpecimenDateByPctchange-90+'] = df['newCasesBySpecimenDateByPctchange-90+'] = df['newCasesBySpecimenDate-90+'].pct_change()
     return newdata,specimen
+
+
 def positive_change(data_frame):
+    """data_frame: Dataframe
+        positive_change(data_frame)
+        This function returns The column of a dataframe that has the highest positive change.
+    """
     count = 0
     new_item = ''
 
@@ -61,13 +75,23 @@ def positive_change(data_frame):
 
 
 def graph_sizer(plt,width,height):
+    """
+    plt: matplotlib,
+    width: width of the graph,
+    height: Height of the graph,
+    graph_sizer(plt,width,height)
+    This function resizes the graph.
+    """
     f = plt.figure()
     f.set_figwidth(width)
     f.set_figheight(height)
     return f
 
 def clean_data(pd):
-    '''pass in the dataframe: pf=dataframe and pd=pandas '''
+    '''pass in the dataframe: pf=dataframe and pd=pandas 
+    This is a custom function for this project.
+    it cleans and process the dataframe, making it ready to work with.
+    '''
     pf = pd.read_csv("../files/specimenDate_ageDemographic-unstacked.csv")
     df = pf.drop(columns=['areaType', 'areaCode','areaName'])
     df['new_date'] = pd.to_datetime(df['date'])
@@ -107,6 +131,13 @@ def clean_data(pd):
 
 
 def compare_change(s):
+    """
+    s: dataframe
+    compare_changes(s):
+    This function takes in a dataframe and returns two item
+    item1 = item with the highest positive change by percentage
+    item2 = item with the lowest positive change by percentage
+    """
     count = 0
     new_item1 = ''
     for item in s.pct_change().tail(7):
@@ -117,21 +148,31 @@ def compare_change(s):
     count2 = 0
     new_item2 = ''
     for item in s.pct_change().tail(7):
-        if s.pct_change().tail(7)[item].values.mean() < count2:
+        if s.pct_change().tail(7)[item].values.mean() < count:
             new_item2 = item
             count2 = s.pct_change().tail(7)[item].values.mean()
     return new_item1,new_item2
 
 
 def cumulative_cases(data,columnlist,):
-    specimen_wnd = data.drop(columns=['new_date',]).copy()
+    """
+    data: pandas Dataframe
+    columnlist: list of column in the dataframe.
+    cumulative_cases(data,columnlist):\
+        
+    """
+    if 'new_date' in data.columns:
+        
+        specimen_wnd = data.drop(columns=['new_date',]).copy()
+    else:
+        specimen_wnd = data.copy()
     last_seven_cumsum = specimen_wnd.tail(7).cumsum()
     last_seven_cumsum = last_seven_cumsum[columnlist].sum()
-    last_seven_cumsum.values
+    # last_seven_cumsum.values
     count = 0
     value = 0
     for item in last_seven_cumsum.values:
         if item > value:
             value = item
         count+=1
-    return count,value,last_seven_cumsum
+    return value, last_seven_cumsum
