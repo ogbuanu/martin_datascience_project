@@ -15,3 +15,4 @@ pandas: used for data processing in this project
 matplotlib: used for data visualization in this project.
 
 python3.9.6
+Note: Make sure to run: 'pip install .' in the root parent directory in the terminal.
