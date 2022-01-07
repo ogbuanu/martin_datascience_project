@@ -104,9 +104,18 @@ def mainloop():
                 "Press 5 to Plot the gender by age range \n"
                 "Press 6 to plot the ethnicity by age range\n"
                 "Press 7 to plot the gender by ethnicity\n"
+                "Press 8 to go back to main-menu\n"
+                "Press 0 to exit."
 
             )
             user = input("")
+            if user == '8':
+                level = 1
+                continue
+
+            if user == '0':
+                switch = True
+                continue
             if user == '1':
                 search.get_request()
                 search.get_result()
