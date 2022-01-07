@@ -39,5 +39,17 @@ over a given date range.
 
 Stop and search 
 
-section 1: How many teenagers were stopped and searched by Cleveland Police in the
-month of July 2020
+1) plot the age-range
+
+2) group the stop and search data with respect to age-range column
+
+
+3) show the number of searches in a particular date using area plot 
+
+4) plot the Search outcome buy age range
+
+5)Plot the gender by age range
+
+6)plot the ethnicity by age range
+
+7)plot the gender by ethnicity

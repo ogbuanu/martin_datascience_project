@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
-from source import helper_func
-
+from .setup_test import covid
 def test_graph_ploter():
-    f = helper_func.graph_sizer(plt,20,10)
+    f = covid.graph_sizer(plt,20,10)
     width = f.get_figwidth()
     height = f.get_figheight()
     assert height == 10
